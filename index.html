@@ -175,6 +175,19 @@
             'escudos/03.png',
             'escudos/04.png',
             'escudos/05.png', 
+            'escudos/06.png',
+            'escudos/07.png',
+            'escudos/08.png',
+            'escudos/09.png',
+            'escudos/010.png', 
+            'escudos/011.png',
+            'escudos/012.png',
+            'escudos/013.png',
+            'escudos/014.png',
+            'escudos/015.png', 
+            'escudos/016.png',
+            'escudos/017.png', 
+            'escudos/018.png',
         ];
 
         const slotElements = document.querySelectorAll('.slot img');
@@ -192,10 +205,11 @@
         }
 
         function animateSlot(slot) {
+            let val = Math.random() * imageUrls.length
             playSpinSound()
             let i = 0;
             const interval = setInterval(() => {
-                slot.src = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+                slot.src = imageUrls[Math.floor(Math.random() * val)];
             }, 100);
 
             setTimeout(() => {
@@ -214,7 +228,7 @@
             aposta = valor
             updateUi ()
             playPaySound()
-        }
+        }  
 
         function checkWin() {
             let winningSlots = [];
