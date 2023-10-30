@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Slot Machine Brasileirão 2023</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #000000, #6d6d6d); /* Cores do degradê */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .slot-container {
+            display: grid;
+            grid-template-columns: repeat(6, 200px);
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slot {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #333;
+            text-align: center;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: white; /* Adicionando cor de fundo branca */
+        }
+
+        .slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        a {
+            margin-right: 100px; /* Espaço à direita entre os botões */
+            font-family: 'Bungee', sans-serif; /* Aplicando a fonte Bungee Spice */
+            font-size: 36px; /* Tamanho inicial do texto */
+            background: linear-gradient(to right, #7cff6b, #646138); /* Cores do degradê */
+            -webkit-background-clip: text; /* Suporte do navegador para aplicar o degradê ao texto */
+            color: transparent; /* Torna o texto transparente para que o degradê seja visível */
+        }
+
+        .divBotoes {
+            width: 100%;
+            height: 100px;
+          
+            text-align: center;
+        }
+
+        .divSpin {
+            
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to right, #000000, #6d6d6d); /* Cores do degradê */
+            text-align: center
+        }
+
+        button {
+            margin-right: 100px; /* Espaço à direita entre os botões */
+        }
+    </style>
+</head>
+<body>
+    <div class="divBotoes">
+        <a id="credito" class="botaoUI">Crédito: 50000</a>
+        <a id="premio" class="botaoUI">Premio: 100</a>
+        <a id="aposta" class="botaoUI">Aposta: 20</a>
+    </div>
+    <div class="slot-container">
+        <div class="slot" id="slot1"><img src="escudos/01.png" alt="Image 1"></div>
+        <div class="slot" id="slot2"><img src="escudos/02.png" alt="Image 1"></div>
+        <div class="slot" id="slot3"><img src="escudos/03.png" alt="Image 1"></div>
+        <div class="slot" id="slot4"><img src="escudos/04.png" alt="Image 1"></div>
+        <div class="slot" id="slot5"><img src="escudos/05.png" alt="Image 1"></div>
+        <div class="slot" id="slot6"><img src="escudos/06.png" alt="Image 1"></div>
+        <div class="slot" id="slot7"><img src="escudos/07.png" alt="Image 1"></div>
+        <div class="slot" id="slot8"><img src="escudos/08.png" alt="Image 1"></div>
+        <div class="slot" id="slot9"><img src="escudos/09.png" alt="Image 1"></div>
+        <div class="slot" id="slot10"><img src="escudos/010.png" alt="Image 1"></div>
+        <div class="slot" id="slot11"><img src="escudos/011.png" alt="Image 1"></div>
+        <div class="slot" id="slot12"><img src="escudos/012.png" alt="Image 1"></div>
+        <div class="slot" id="slot13"><img src="escudos/013.png" alt="Image 1"></div>
+        <div class="slot" id="slot14"><img src="escudos/014.png" alt="Image 1"></div>
+        <div class="slot" id="slot15"><img src="escudos/015.png" alt="Image 1"></div>
+        <div class="slot" id="slot16"><img src="escudos/016.png" alt="Image 1"></div>
+        <div class="slot" id="slot17"><img src="escudos/017.png" alt="Image 1"></div>
+        <div class="slot" id="slot18"><img src="escudos/018.png" alt="Image 1"></div>
+
+    </div>
+    <br>
+    <div class="divSpin">
+        <button onclick="spin()">Spin</button>
+    </div>
+    <div class="divSpin">
+        <button onclick="setAposta(20)">20</button>
+        <button onclick="setAposta(50)">50</button>
+        <button onclick="setAposta(10)">100</button>
+        <button onclick="setAposta(200)">200</button>
+    </div>
+    
+
+    <audio id="soundSuccess">
+        <source src="3x.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="soundSuccess4x">
+        <source src="4x.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="soundSpin">
+        <source src="spin.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="soundPay">
+        <source src="pay.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="soundError">
+        <source src="error.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <script>
+        var credito = 50000
+        let premio = 0
+        var aposta = 20
+        const creditoText = document.getElementById('credito');
+        const premioText = document.getElementById('premio');
+        const apostaText = document.getElementById('aposta');
+
+        function diminuirNumero(valorInicial, valorFinal, duracao) {
+        const diff = valorInicial - valorFinal;
+        const passo = diff / duracao;
+        let valor = valorInicial;
+    
+
+        const diminuir = setInterval(() => {
+            if (valor > valorFinal) {
+            valor -= passo;
+            console.log(valor); // Aqui você pode fazer o que quiser com o valor, como exibir na tela, etc.
+            } else {
+            clearInterval(diminuir);
+            console.log("Animação concluída!");
+            }
+        }, 1); // Intervalo de 1 milissegundo
+        }
+
+        // Exemplo de uso: diminuir de 1000 para 500 em 3 segundos (3000 milissegundos)
+        
+
+        const imageUrls = [
+            'escudos/01.png',
+            'escudos/02.png',
+            'escudos/03.png',
+            'escudos/04.png',
+            'escudos/05.png', 
+        ];
+
+        const slotElements = document.querySelectorAll('.slot img');
+        const rows = 3;
+        const cols = 6;
+
+        function spin() {
+            slotElements.forEach(slot => {
+                animateSlot(slot);
+            });
+
+            setTimeout(() => {
+                checkWin();
+            }, 2000);
+        }
+
+        function animateSlot(slot) {
+            playSpinSound()
+            let i = 0;
+            const interval = setInterval(() => {
+                slot.src = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+            }, 100);
+
+            setTimeout(() => {
+                clearInterval(interval);
+            }, 1500 + Math.floor(Math.random() * 500));
+        }
+
+        function updateUi () {
+            creditoText.textContent = "Crédito: " + credito
+            premioText.textContent = "Premio: " + premio
+            apostaText.textContent = "Aposta: " + aposta
+            
+        }
+
+        function setAposta(valor) {
+            aposta = valor
+            updateUi ()
+            playPaySound()
+        }
+
+        function checkWin() {
+            let winningSlots = [];
+
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols - 2; j++) {
+                    const slotIndex = i * cols + j;
+                    if (
+                        slotElements[slotIndex].src === slotElements[slotIndex + 1].src &&
+                        slotElements[slotIndex].src === slotElements[slotIndex + 2].src
+                    ) {
+                        const symbol = slotElements[slotIndex].src;
+                        let count = 3;
+
+                        while (
+                            slotIndex + count < (i + 1) * cols &&
+                            slotElements[slotIndex + count].src === symbol
+                        ) {
+                            count++;
+                        }
+
+                        if (count >= 3) {
+                            for (let k = 0; k < count; k++) {
+                                winningSlots.push(slotIndex + k);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (winningSlots.length > 0 && winningSlots.length <= 3) {
+                highlightWinningSlots(winningSlots);
+                playSuccessSound();
+                premio = 2 * aposta
+                credito = credito + premio
+                playPaySound()
+                updateUi()
+                
+            }
+            
+            if (winningSlots.length > 3) {
+                highlightWinningSlots(winningSlots);
+                playSuccessSound4x();
+                premio = 10 * aposta
+                credito = credito + premio
+                playPaySound()
+                updateUi()
+            }
+            if (winningSlots.length == 0 ) {
+               // alert("Sem combinações vencedoras. Tente novamente!");
+                playErrorSound();
+                premio = 0
+                credito = credito - aposta
+                updateUi()
+            }
+
+            updateUi()
+        }
+
+        function playSuccessSound() {
+            document.getElementById('soundSuccess').play();
+        }
+
+        function playSuccessSound4x() {
+            document.getElementById('soundSuccess4x').play();
+        }
+
+        function playSpinSound() {
+            document.getElementById('soundSpin').play();
+        }
+
+        function playPaySound() {
+            document.getElementById('soundPay').play();
+        }
+
+        function playErrorSound() {
+            document.getElementById('soundError').play();
+        }
+
+        function highlightWinningSlots(winningSlots) {
+            winningSlots.forEach(slotIndex => {
+                slotElements[slotIndex].parentNode.style.backgroundColor = 'green';
+            });
+
+            setTimeout(() => {
+                winningSlots.forEach(slotIndex => {
+                    slotElements[slotIndex].parentNode.style.backgroundColor = 'white';
+                });
+            }, 2000);
+        }
+
+        // Adiciona a funcionalidade de pressionar a tecla "Space" para ativar o botão Spin
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                spin();
+            }
+        });
+
+        // Permite que o botão Spin seja pressionado ao clicar no espaço
+        document.getElementById('spinButton').addEventListener('keypress', function(event) {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                spin();
+            }
+        });
+    </script>
+</body>
+</html>
