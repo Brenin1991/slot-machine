@@ -1,0 +1,86 @@
+body {
+  background: linear-gradient(
+    to right,
+    #000000,
+    #6d6d6d
+  ); /* Cores do degradê */
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.slot-container {
+  display: grid;
+  grid-template-columns: repeat(6, 200px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.slot {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #333;
+  text-align: center;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: white; /* Adicionando cor de fundo branca */
+}
+
+.slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  margin-right: 100px; /* Espaço à direita entre os botões */
+  font-family: "Bungee", sans-serif; /* Aplicando a fonte Bungee Spice */
+  font-size: 36px; /* Tamanho inicial do texto */
+  background: linear-gradient(
+    to right,
+    #7cff6b,
+    #646138
+  ); /* Cores do degradê */
+  -webkit-background-clip: text; /* Suporte do navegador para aplicar o degradê ao texto */
+  color: transparent; /* Torna o texto transparente para que o degradê seja visível */
+}
+
+.divBotoes {
+  width: 100%;
+  height: 100px;
+
+  text-align: center;
+}
+
+.divSpin {
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to right,
+    #000000,
+    #6d6d6d
+  ); /* Cores do degradê */
+  text-align: center;
+}
+
+button {
+  margin-right: 100px; /* Espaço à direita entre os botões */
+}
